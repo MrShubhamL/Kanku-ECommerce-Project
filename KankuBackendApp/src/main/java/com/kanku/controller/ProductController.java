@@ -22,14 +22,14 @@ public class ProductController {
     public ResponseEntity<?> addProduct(
             @ModelAttribute("productName") String productName,
             @ModelAttribute("productDescription") String productDescription,
-            @ModelAttribute("productDate") LocalDate productDate,
+//            @ModelAttribute("productDate") LocalDate productDate,
             @RequestParam("productImage") MultipartFile file,
             @ModelAttribute("productCategory") String productCategory) throws IOException {
         Product product = new Product();
         product.setProductName(productName);
         product.setProductDescription(productDescription);
         product.setProductCategory(productCategory);
-        product.setProductDate(productDate);
+        product.setProductDate(LocalDate.now());
         System.out.println(productName);
 
         return ResponseEntity.ok(productService.addProduct(product,file));

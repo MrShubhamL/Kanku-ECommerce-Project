@@ -1,8 +1,7 @@
 package com.kanku.service.impl;
 
 import com.kanku.model.BatchProductSize;
-import com.kanku.model.Order;
-import com.kanku.model.Product;
+import com.kanku.model.ProductOrder;
 import com.kanku.model.Size;
 import com.kanku.repository.ISizeRepository;
 import com.kanku.service.ISizeService;
@@ -42,20 +41,20 @@ public class SizeServiceImpl implements ISizeService {
     }
 
     @Override
-    public void updateProductDetails(Order order) {
-        Size size=sizeRepository.findById(order.getSize().getSizeId()).get();
+    public void updateProductDetails(ProductOrder productOrder) {
+        Size size=sizeRepository.findById(productOrder.getSize().getSizeId()).get();
 
         if(size.getProductDropPrice()>0.0) {
 
-            Double totalOrderAmount = size.getProductDropPrice() * order.getOrderQuantity();
+            Double totalOrderAmount = size.getProductDropPrice() * productOrder.getOrderQuantity();
             size.setTotalAmount(size.getTotalAmount() - totalOrderAmount);
-            size.setTotalProductQuantity(size.getTotalProductQuantity() - order.getOrderQuantity());
+            size.setTotalProductQuantity(size.getTotalProductQuantity() - productOrder.getOrderQuantity());
             sizeRepository.save(size);
         }
         else {
-            Double totalOrderAmount = size.getProductPrice() * order.getOrderQuantity();
+            Double totalOrderAmount = size.getProductPrice() * productOrder.getOrderQuantity();
             size.setTotalAmount(size.getTotalAmount() - totalOrderAmount);
-            size.setTotalProductQuantity(size.getTotalProductQuantity() - order.getOrderQuantity());
+            size.setTotalProductQuantity(size.getTotalProductQuantity() - productOrder.getOrderQuantity());
             sizeRepository.save(size);
         }
     }

@@ -1,7 +1,7 @@
 package com.kanku.service;
 
-import com.kanku.model.Order;
+import com.kanku.model.ProductOrder;
 
 public interface IOrderService {
-    Order orderProduct(Order order);
+    ProductOrder orderProduct(ProductOrder productOrder);
 }

@@ -14,16 +14,6 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
-    @PostMapping("/registerCustomer")
-    public ResponseEntity<?> registerCustomer(@RequestBody Customer customer){
-         return ResponseEntity.ok(customerService.registerCustomer(customer));
-    }
-
-    @PostMapping("/loginCustomer")
-    public ResponseEntity<?> loginCustomer(@RequestBody Customer customer){
-
-       return ResponseEntity.ok(customerService.getCustomerByEmailPass(customer));
-    }
 
 
 }

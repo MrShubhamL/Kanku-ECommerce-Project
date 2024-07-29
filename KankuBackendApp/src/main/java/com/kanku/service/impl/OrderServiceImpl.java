@@ -1,13 +1,10 @@
 package com.kanku.service.impl;
 
-import com.kanku.model.Order;
-import com.kanku.model.Product;
+import com.kanku.model.ProductOrder;
 import com.kanku.model.Size;
 import com.kanku.repository.IOrderRepository;
-import com.kanku.repository.IProductRepository;
 import com.kanku.repository.ISizeRepository;
 import com.kanku.service.IOrderService;
-import com.kanku.service.IProductService;
 import com.kanku.service.ISizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,18 +27,18 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private ISizeService sizeService;
     @Override
-    public Order orderProduct(Order order) {
+    public ProductOrder orderProduct(ProductOrder productOrder) {
 
 
-        Size size =sizeRepository.findById(order.getSize().getSizeId()).get();
+        Size size =sizeRepository.findById(productOrder.getSize().getSizeId()).get();
         System.out.println(size);
-        System.out.println(order.getProduct());
+        System.out.println(productOrder.getProduct());
 
-        if(order.getOrderQuantity()<=size.getTotalProductQuantity()){
+        if(productOrder.getOrderQuantity()<=size.getTotalProductQuantity()){
 
-              sizeService.updateProductDetails(order);
-              order.setOrderDate(LocalDate.now());
-              return orderRepository.save(order);
+              sizeService.updateProductDetails(productOrder);
+              productOrder.setOrderDate(LocalDate.now());
+              return orderRepository.save(productOrder);
 
         }
         return null;

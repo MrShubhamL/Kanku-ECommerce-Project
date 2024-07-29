@@ -1,7 +1,5 @@
 package com.kanku.service;
 
-import com.kanku.model.Customer;
-import com.kanku.model.Order;
 import com.kanku.model.Product;
 import org.springframework.web.multipart.MultipartFile;
 

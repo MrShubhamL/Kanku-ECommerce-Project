@@ -1,6 +1,5 @@
 package com.kanku.service.impl;
 
-import com.kanku.model.Order;
 import com.kanku.model.Product;
 import com.kanku.repository.IProductRepository;
 import com.kanku.repository.ISpecialOfferRepository;

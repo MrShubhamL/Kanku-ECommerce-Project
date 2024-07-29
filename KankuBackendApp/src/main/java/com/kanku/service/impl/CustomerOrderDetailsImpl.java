@@ -1,7 +1,6 @@
 package com.kanku.service.impl;
 
 import com.kanku.model.Customer;
-import com.kanku.model.Order;
 import com.kanku.model.Product;
 import com.kanku.model.Size;
 import com.kanku.model.dto.CustomerOrderDetailsDto;

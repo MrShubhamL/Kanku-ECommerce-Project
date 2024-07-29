@@ -36,7 +36,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     @JsonManagedReference
-    private List<Order> orders;
+    private List<ProductOrder> productOrders;
 
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)

@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerCustomServiceImpl implements ICustomerService {
 
     @Autowired
     private ICustomerRepository customerRepository;
@@ -17,8 +18,9 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public Customer registerCustomer(Customer customer) {
 
-        if(customerRepository.findByemail(customer.getEmail())==null){
+        if(customerRepository.findByUsername(customer.getUsername())==null){
             customer.setDate(LocalDate.now());
+            customer.setRole("NORMAL");
             return customerRepository.save(customer);
         }
         return null;
@@ -26,7 +28,13 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Customer getCustomerByEmailPass(Customer customer) {
-        return customerRepository.getCustomerByEmailAndPassword(customer.getEmail(),customer.getPassword());
+        return customerRepository.getCustomerByUsernameAndPassword(customer.getUsername(),customer.getPassword());
+    }
+
+    @Override
+    public Boolean getCustomerByEmail(String username) {
+        Optional<Customer> customerByUsername = customerRepository.getCustomerByUsername(username);
+        return customerByUsername.isPresent();
     }
 
 
