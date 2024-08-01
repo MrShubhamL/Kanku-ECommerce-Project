@@ -25,7 +25,7 @@ export class CustomerCheckoutComponent implements OnInit {
     "password" : '',
     "contact" : '',
     "address" : '',
-    "pincode" : ''
+    "pinCode" : ''
   }
 
   form: FormGroup = new FormGroup({
@@ -35,7 +35,7 @@ export class CustomerCheckoutComponent implements OnInit {
     password : new FormControl(''),
     contact : new FormControl(''),
     address : new FormControl(''),
-    pincode : new FormControl('')
+    pinCode : new FormControl('')
   });
 
 
@@ -46,13 +46,14 @@ export class CustomerCheckoutComponent implements OnInit {
 
     this.service.getCustomerInfo(this.customer).subscribe(res=>{
       if(res!==null){
+        console.log(res);
         this.checkoutCustomer = res;
         this.form.get("customerId")?.setValue(this.checkoutCustomer.customerId);
         this.form.get("fullName")?.setValue(this.checkoutCustomer.fullName);
         this.form.get("username")?.setValue(this.checkoutCustomer.username);
         this.form.get("contact")?.setValue(this.checkoutCustomer.contact);
         this.form.get("address")?.setValue(this.checkoutCustomer.address);
-        this.form.get("pincode")?.setValue(this.checkoutCustomer.pincode);
+        this.form.get("pinCode")?.setValue(this.checkoutCustomer.pinCode);
       }
     },err=>{
       console.log(err);
@@ -62,7 +63,7 @@ export class CustomerCheckoutComponent implements OnInit {
   formSubmit(){
     this.service.updateProfile(this.form.value).subscribe(res=>{
       if(res!==null){
-        console.log(res);
+        this.storage.saveUser(res);
         this.toast.success("User profile is updated successfully", "Profile Updated");
         this.router.navigate(['/customer-purchase-home/checkout']);
       }

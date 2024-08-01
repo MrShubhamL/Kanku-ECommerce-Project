@@ -3,6 +3,7 @@ package com.kanku.controller;
 import com.kanku.model.Product;
 import com.kanku.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,6 +83,11 @@ public class ProductController {
     public ResponseEntity<?> getLastProduct(){
 
         return ResponseEntity.ok(productService.fetchLastProduct());
+    }
+
+    @GetMapping("/getProductById/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable("id") Long id){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.getProductById(id));
     }
 
 

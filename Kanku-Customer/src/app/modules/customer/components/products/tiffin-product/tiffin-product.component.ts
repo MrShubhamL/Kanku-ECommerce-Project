@@ -14,8 +14,6 @@ export class TiffinProductComponent {
   constructor(private productService: ProductListService) { }
 
   ngOnInit(): void {
-    this.productService.gettiffin().subscribe(products => {
-      this.tiffin = products;
-    });
+
   }
 }

@@ -18,17 +18,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/service")
+@CrossOrigin("*")
 public class JwtAuthenticationController {
     @Autowired
     private CustomerServiceImpl customerService;
@@ -40,6 +39,8 @@ public class JwtAuthenticationController {
     ICustomerRepository customerRepository;
     @Autowired
     ICustomerService userService;
+
+    private static String jwt = null;
 
     @PostConstruct
     public void createAdmin(){
@@ -60,6 +61,9 @@ public class JwtAuthenticationController {
         if(userService.getCustomerByEmail(customer.getUsername())){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Username already existed. Try again with new username.");
         }
+        String password = customer.getPassword();
+        customer.setPassword(new BCryptPasswordEncoder().encode(password));
+        customer.setRole("CUSTOMER");
         Customer cust = userService.registerCustomer(customer);
         if(cust==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request");
@@ -76,7 +80,7 @@ public class JwtAuthenticationController {
         }
         UserDetails userDetails = customerService.loadUserByUsername(request.getUsername());
         Optional<Customer> optionalCustomer = customerRepository.getCustomerByUsername(userDetails.getUsername());
-        final String jwt = jwtUtils.generateToken(userDetails.getUsername());
+        jwt = jwtUtils.generateToken(userDetails.getUsername());
         JwtResponse response = new JwtResponse();
         if(optionalCustomer.isPresent()){
             response.setJwtToken(jwt);
@@ -85,5 +89,21 @@ public class JwtAuthenticationController {
             return response;
         }
         return null;
+    }
+
+    @GetMapping("/isTokenExpired")
+    public  ResponseEntity<Boolean> isTokenExpired(){
+        System.out.println(jwt);
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(jwtUtils.isTokenExpired(jwt));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
+        }
+    }
+
+    @GetMapping("/currentUser")
+    public ResponseEntity<Customer> currentUser(Principal principal){
+        String username = principal.getName();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.getCustomerByUsername(username));
     }
 }

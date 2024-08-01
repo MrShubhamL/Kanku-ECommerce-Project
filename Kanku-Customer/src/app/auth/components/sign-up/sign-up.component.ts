@@ -30,6 +30,7 @@ export class SignUpComponent {
 
 
   formSubmit() {
+    this.storage.clearLocalStorage();
     this.service.registration(this.form.value).subscribe(res => {
       if (res !== null) {
 
@@ -40,7 +41,10 @@ export class SignUpComponent {
             this.storage.saveToken(res.jwtToken);
             this.storage.getCurrentUser().subscribe(res => {
               if (res !== null) {
+                console.log(res);
+
                 this.storage.saveUser(res);
+                console.log(this.storage.getToken() + " and " + this.storage.getUserRole());
 
                 if (this.storage.getToken() !== null && this.storage.getUserRole() == "CUSTOMER") {
                   this.router.navigate(['/']);

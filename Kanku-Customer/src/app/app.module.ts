@@ -1,3 +1,4 @@
+import { authInterceptor } from './auth/services/auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +22,6 @@ import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
 import { ForgetPasswordComponent } from './auth/components/forget-password/forget-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { authInterceptor } from './auth/services/auth.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { CustomerPurchaseHomeComponent } from './modules/customer/components/customer-purchase-home/customer-purchase-home.component';
 
@@ -60,8 +60,8 @@ import { CustomerPurchaseHomeComponent } from './modules/customer/components/cus
     })
   ],
   providers: [
-    provideClientHydration(),
-    authInterceptor
+    // provideClientHydration(),
+    authInterceptor,
   ],
   bootstrap: [AppComponent]
 })

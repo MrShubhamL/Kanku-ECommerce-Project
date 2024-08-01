@@ -13,8 +13,6 @@ export class BottleProductComponent implements OnInit {
   constructor(private productService: ProductListService) { }
 
   ngOnInit(): void {
-    this.productService.getbottol().subscribe(products => {
-      this.bottle = products;
-    });
+
   }
 }

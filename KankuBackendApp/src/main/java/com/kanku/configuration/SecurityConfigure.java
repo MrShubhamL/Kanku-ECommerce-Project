@@ -31,7 +31,10 @@ public class SecurityConfigure {
         return security.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> {
-                            auth.requestMatchers("/api/service/*").permitAll()
+                            auth.requestMatchers("/api/service/*",
+                                            "/product/getAllProducts",
+                                            "/product/getProductById/*",
+                                            "/size/*").permitAll()
                                     .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                     //Admin Endpoints Permissions
                                     .requestMatchers(

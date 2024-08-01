@@ -7,5 +7,7 @@ import com.kanku.model.Size;
 public interface ISizeService {
     Size addSize(BatchProductSize batchProductSize);
 
+    Size getSizeByProductId(Size size);
+
     void updateProductDetails(ProductOrder productOrder);
 }

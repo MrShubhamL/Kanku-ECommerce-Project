@@ -13,8 +13,6 @@ export class UniformProductComponent {
   constructor(private productService: ProductListService) { }
 
   ngOnInit(): void {
-    this.productService.getuniform().subscribe(products => {
-      this.uniform = products;
-    });
+
   }
 }

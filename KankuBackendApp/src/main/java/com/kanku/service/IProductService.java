@@ -18,6 +18,8 @@ public interface IProductService {
 
     List<Product> getAllCategories();
 
+    Product getProductById(Long id);
+
     List<Product> getProductsByCategory(Product product);
 
     Product fetchLastProduct();

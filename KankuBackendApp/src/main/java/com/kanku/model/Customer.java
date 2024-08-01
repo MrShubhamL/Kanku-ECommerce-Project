@@ -34,6 +34,7 @@ public class Customer implements UserDetails {
     private List<ProductOrder> productOrders;
     private LocalDate date;
     private String role;
+    private String pinCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -46,12 +47,12 @@ public class Customer implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return false;
     }
 
     @Override

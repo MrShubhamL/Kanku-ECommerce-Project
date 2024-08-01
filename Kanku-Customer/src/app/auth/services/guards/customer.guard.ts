@@ -10,6 +10,7 @@ class RoutePermission {
     if(this.storage.getUser() !== null && this.storage.getToken() !== null && this.storage.getUserRole() == "CUSTOMER"){
       return true;
     }
+
     this.router.navigate(['/sign-in'])
     return false;
   }

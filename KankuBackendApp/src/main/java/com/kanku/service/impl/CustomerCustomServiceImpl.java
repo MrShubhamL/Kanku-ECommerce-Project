@@ -20,21 +20,36 @@ public class CustomerCustomServiceImpl implements ICustomerService {
 
         if(customerRepository.findByUsername(customer.getUsername())==null){
             customer.setDate(LocalDate.now());
-            customer.setRole("NORMAL");
             return customerRepository.save(customer);
         }
         return null;
     }
 
     @Override
-    public Customer getCustomerByEmailPass(Customer customer) {
-        return customerRepository.getCustomerByUsernameAndPassword(customer.getUsername(),customer.getPassword());
+    public Customer updateCustomerByUsername(Customer customer) {
+        Optional<Customer> customerByUsername = customerRepository.getCustomerByUsername(customer.getUsername());
+        if(customerByUsername.isPresent()){
+            customerByUsername.get().setCustomerId(customer.getCustomerId());
+            customerByUsername.get().setUsername(customer.getUsername());
+            customerByUsername.get().setFullName(customer.getFullName());
+            customerByUsername.get().setContact(customer.getContact());
+            customerByUsername.get().setAddress(customer.getAddress());
+            customerByUsername.get().setPinCode(customer.getPinCode());
+            return customerRepository.save(customerByUsername.get());
+        }
+        return null;
     }
+
 
     @Override
     public Boolean getCustomerByEmail(String username) {
         Optional<Customer> customerByUsername = customerRepository.getCustomerByUsername(username);
         return customerByUsername.isPresent();
+    }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        return customerRepository.getCustomerByUsername(username).get();
     }
 
 

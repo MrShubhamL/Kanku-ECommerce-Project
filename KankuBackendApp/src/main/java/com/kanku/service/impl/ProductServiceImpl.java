@@ -81,6 +81,11 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public Product getProductById(Long id) {
+        return productRepository.getProductByProductId(id);
+    }
+
+    @Override
     public List<Product> getProductsByCategory(Product product) {
         return productRepository.getProductsByProductCategory(product.getProductCategory());
     }

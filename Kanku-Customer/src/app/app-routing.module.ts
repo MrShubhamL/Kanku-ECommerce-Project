@@ -47,7 +47,7 @@ const routes: Routes = [
     canActivate: [customerGuard],
     children: [
       {
-        path: "details",
+        path: "details/:id",
         component: CustomerProductDetailsComponent,
       },
       {

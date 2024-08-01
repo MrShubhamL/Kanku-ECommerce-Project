@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ISizeRepository extends JpaRepository<Size,Long> {
 
     Optional<Size> findByProduct_ProductIdAndSizeId(Long productId, Long sizeId);
+
+    Size getSizeByProductProductId(Long id);
 }

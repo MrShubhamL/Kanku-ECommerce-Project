@@ -32,16 +32,16 @@
       <div class="col-md-10 mx-auto col-lg-5">
           <form [formGroup]="form" (ngSubmit)="formSubmit()" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
               <div class="form-floating mb-3">
-                  <input formControlName="fullName" name="fullName" type="text" class="form-control" id="floatingInput" placeholder="Fullname">
-                  <label for="floatingInput">Fullname</label>
+                  <input formControlName="fullName" name="fullName" type="text" class="form-control" placeholder="Fullname">
+                  <label class="form-label">Fullname</label>
               </div>
               <div class="form-floating mb-3">
-                  <input formControlName="username" name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                  <label for="floatingInput">Email address</label>
+                  <input formControlName="username" name="email" type="email" class="form-control" placeholder="name@example.com">
+                  <label class="form-label">Email address</label>
               </div>
               <div class="form-floating mb-3">
-                  <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                  <label for="floatingPassword">Password</label>
+                  <input formControlName="password" type="password" class="form-control" placeholder="Password">
+                  <label class="form-label">Password</label>
               </div>
 
               <div>

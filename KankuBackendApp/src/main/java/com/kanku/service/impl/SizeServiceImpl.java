@@ -41,6 +41,11 @@ public class SizeServiceImpl implements ISizeService {
     }
 
     @Override
+    public Size getSizeByProductId(Size size) {
+        return sizeRepository.getSizeByProductProductId(size.getProduct().getProductId());
+    }
+
+    @Override
     public void updateProductDetails(ProductOrder productOrder) {
         Size size=sizeRepository.findById(productOrder.getSize().getSizeId()).get();
 

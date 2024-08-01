@@ -54,8 +54,21 @@ export class StorageService {
     return this.http.get(BASE_URL + "/api/service/currentUser");
   }
 
-  public isTokenExpired():Observable<any>{
-    return this.http.get(BASE_URL + "/api/service/isTokenExpired");
+  public isTokenExpired():Boolean{
+    this.http.get(BASE_URL + "/api/service/isTokenExpired").subscribe(res=>{
+      if(res){
+        this.clearLocalStorage();
+        this.router.navigate(['/sign-in'])
+        return true;
+      }
+      else{
+        return false;
+      }
+    },err=>{
+      this.clearLocalStorage();
+      console.log("This is error.." + err);
+    });
+    return false;
   }
 
   public logout(){
@@ -63,6 +76,13 @@ export class StorageService {
       window.localStorage.removeItem("user");
       window.localStorage.removeItem("token");
       this.router.navigate(['/']);
+    }
+  }
+
+  public clearLocalStorage(){
+    if(typeof window !== 'undefined'){
+      window.localStorage.removeItem("user");
+      window.localStorage.removeItem("token");
     }
   }
 
